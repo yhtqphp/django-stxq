@@ -14,7 +14,7 @@ class Command(BaseCommand):
             self.start()
 
         if options['option'] =='stop':
-            print('结束运行')
+            self.stop()
 
         if options['option'] =='status':
             print('运行状态')
@@ -25,5 +25,8 @@ class Command(BaseCommand):
     def start(self):
         s = Service()
         s.start()
+    def stop(self):
+        s = Service()
+        s.stopPid()
 
 

@@ -46,11 +46,19 @@ class Service(BaseService):
         self.join()
 
     def stop(self):
+
         self.__EXIT = True
         self.man.stop()
-        atexit.register(os.remove,'')
         print('结束运行')
 
+    def stopPid(self):
+        with open(Conf.pid, 'r') as fp:
+            pid = int(fp.read())
+            while True:
+                try:
+                    os.kill(pid, SIGINT)
+                except OSError as e:
+                    print('退出成功  pid:{}'.format(pid))
     def getClass(self):
         tem = []
         for i in Conf.process:
