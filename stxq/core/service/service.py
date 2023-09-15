@@ -3,7 +3,7 @@ from stxq.core.proc.manage import Manage
 
 from stxq.conf import Conf
 import signal, psutil
-from signal import SIGINT, SIGBREAK
+from signal import SIGINT
 import atexit
 import time, os
 import importlib

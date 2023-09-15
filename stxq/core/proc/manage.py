@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 from multiprocessing import Event
 from stxq.conf import Conf
 import signal
-from signal import SIGINT, SIGBREAK
+from signal import SIGINT
 
 import time
 
