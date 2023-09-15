@@ -59,6 +59,10 @@ class Service(BaseService):
                     os.kill(pid, SIGINT)
                 except OSError as e:
                     print('退出成功  pid:{}'.format(pid))
+                    exit(0)
+                finally:
+                    time.sleep(0.2)
+
     def getClass(self):
         tem = []
         for i in Conf.process:
