@@ -24,4 +24,6 @@ class Command(BaseCommand):
 
     def start(self):
         s = Service()
+        s.start()
+
 
