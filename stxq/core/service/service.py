@@ -5,7 +5,7 @@ from stxq.conf import Conf
 import signal, psutil
 from signal import SIGINT
 import atexit
-import time, os
+import time, os, sys
 import importlib
 
 class Service(BaseService):
@@ -16,7 +16,31 @@ class Service(BaseService):
         self.man = Manage()
         self.man.submit(self.getClass())
 
+
     def start(self):
+        pid = os.fork()
+        if pid:
+            exit(0)
+        os.chdir('/')
+        os.umask(0)
+        os.setsid()
+        pid = os.fork()
+        if pid:
+            exit(0)
+        sys.stdout.flush()
+        sys.stderr.flush()
+        with open('/dev/null') as read_null, open('/dev/null', 'w') as write_null:
+            os.dup2(read_null.fileno(), sys.stdin.fileno())
+            os.dup2(write_null.fileno(), sys.stdout.fileno())
+            os.dup2(write_null.fileno(), sys.stderr.fileno())
+
+        # 写入pid文件
+        if Conf.pid:
+            with open( Conf.pid, 'w+') as f:
+                f.write(str(os.getpid()))
+            # 注册退出函数，进程异常退出时移除pid文件
+            atexit.register(os.remove,  Conf.pid)
+
         self.__EXIT = False
         self.man.start()
         self.join()
