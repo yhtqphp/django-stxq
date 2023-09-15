@@ -18,6 +18,9 @@ class Service(BaseService):
 
 
     def start(self):
+        if  os.path.isfile(Conf.pid):
+            print('runing...')
+            exit(0)
         pid = os.fork()
         if pid:
             exit(0)
@@ -52,6 +55,10 @@ class Service(BaseService):
         print('结束运行')
 
     def stopPid(self):
+        if not os.path.isfile(Conf.pid):
+            print('not runing')
+            exit(0)
+
         with open(Conf.pid, 'r') as fp:
             pid = int(fp.read())
             while True:
