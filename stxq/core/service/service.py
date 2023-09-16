@@ -8,6 +8,7 @@ import atexit
 import time, os, sys
 import importlib
 
+
 class Service(BaseService):
     __EXIT = False
     def __init__(self):
@@ -54,7 +55,6 @@ class Service(BaseService):
         self.__EXIT = False
         self.man.start()
         self.join()
-
 
     def stop(self):
 

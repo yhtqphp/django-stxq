@@ -3,6 +3,7 @@ import platform
 
 class Conf:
     conf = settings.S_TXQ
+    name=conf.get('name', '')
     # pid路径
     pid = conf.get('pid', settings.BASE_DIR / 'stxq.pid')
     # 检测进程时间, 单位秒
