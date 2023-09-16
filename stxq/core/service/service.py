@@ -17,7 +17,7 @@ class Service(BaseService):
         self.man.submit(self.getClass())
 
 
-    def start(self):
+    def startLinux(self):
         if  os.path.isfile(Conf.pid):
             print('runing...')
             exit(0)
@@ -48,6 +48,14 @@ class Service(BaseService):
         self.man.start()
         self.join()
 
+    def start(self):
+        if Conf.isLinux:
+            return self.startLinux()
+        self.__EXIT = False
+        self.man.start()
+        self.join()
+
+
     def stop(self):
 
         self.__EXIT = True
@@ -55,6 +63,8 @@ class Service(BaseService):
         print('结束运行')
 
     def stopPid(self):
+        if not Conf.isLinux:
+            return self.stop()
         if not os.path.isfile(Conf.pid):
             print('not runing')
             exit(0)

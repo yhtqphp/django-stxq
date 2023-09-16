@@ -1,4 +1,5 @@
 from django.conf import settings
+import platform
 
 class Conf:
     conf = settings.S_TXQ
@@ -7,3 +8,5 @@ class Conf:
     # 检测进程时间, 单位秒
     checkProcTimeout = conf.get('check_proc_timeout', 1)
     process = conf.get('process', [])
+
+    isLinux = True if platform.system().lower() == 'linux' else False
