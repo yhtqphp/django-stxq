@@ -33,10 +33,11 @@ class Service(BaseService):
             exit(0)
         sys.stdout.flush()
         sys.stderr.flush()
-        with open('/dev/null') as read_null, open('/dev/null', 'w') as write_null:
+
+        with open('/dev/null') as read_null, open(Conf.stdout, 'w') as write_null, open(Conf.stderr, 'w') as errwrite_null:
             os.dup2(read_null.fileno(), sys.stdin.fileno())
             os.dup2(write_null.fileno(), sys.stdout.fileno())
-            os.dup2(write_null.fileno(), sys.stderr.fileno())
+            os.dup2(errwrite_null.fileno(), sys.stderr.fileno())
 
         # 写入pid文件
         if Conf.pid:
