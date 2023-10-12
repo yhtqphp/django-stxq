@@ -74,7 +74,7 @@ class Service(BaseService):
             pid = int(fp.read())
             while True:
                 try:
-                    os.kill(pid, SIGTERM)
+                    os.kill(pid, SIGINT)
                 except OSError as e:
                     print('退出成功  pid:{}'.format(pid))
                     exit(0)
