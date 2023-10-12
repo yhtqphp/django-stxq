@@ -20,9 +20,9 @@ class Manage(object):
         self.t1 = Thread(target=self.runSubmit, daemon=True)
         self.t2 = Thread(target=self.checkProc, daemon=True)
         self.setSig()
-
+    
     def setSig(self):
-        signal.signal(SIGINT, self.sigHander)
+        # signal.signal(SIGINT, self.sigHander)
         signal.signal(SIGTERM, self.sigHander)
 
     def sigHander(self, sig, frame):
