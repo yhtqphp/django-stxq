@@ -1,3 +1,6 @@
+import os
+import sys
+
 from django.core.management.base import BaseCommand, CommandError
 from stxq.core.service.service import Service
 import importlib
@@ -6,10 +9,10 @@ class Command(BaseCommand):
     help = "Closes the specified poll for voting"
 
     def add_arguments(self, parser):
-        parser.add_argument('option', default='start', help='start|stop|status|reload')
+        # parser.add_argument('option', default='start', help='start|stop|status|reload')
+        parser.add_argument('option', default='start',  help='start|stop|status|reload')
 
     def handle(self, *args, **options):
-
         if options['option'] =='start':
             self.start()
 
@@ -17,10 +20,19 @@ class Command(BaseCommand):
             self.stop()
 
         if options['option'] =='status':
-            print('运行状态')
+            self.status()
 
         if options['option'] =='reload':
-            print('重新运行')
+            self.stop()
+            self.start()
+
+    def status(self):
+        s = Service()
+        if s.status():
+            self.stdout.write('runing')
+        else:
+            self.stdout.write('not runing')
+
 
     def start(self):
         s = Service()

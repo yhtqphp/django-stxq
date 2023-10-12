@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 from multiprocessing import Event
 from stxq.conf import Conf
 import signal
-from signal import SIGINT
+from signal import SIGINT, SIGTERM
 
 import time
 
@@ -23,6 +23,7 @@ class Manage(object):
 
     def setSig(self):
         signal.signal(SIGINT, self.sigHander)
+        signal.signal(SIGTERM, self.sigHander)
 
     def sigHander(self, sig, frame):
         print(sig)

@@ -3,7 +3,7 @@ from stxq.core.proc.manage import Manage
 
 from stxq.conf import Conf
 import signal, psutil
-from signal import SIGINT
+from signal import SIGINT, SIGTERM
 import atexit
 import time, os, sys
 import importlib
@@ -74,7 +74,7 @@ class Service(BaseService):
             pid = int(fp.read())
             while True:
                 try:
-                    os.kill(pid, SIGINT)
+                    os.kill(pid, SIGTERM)
                 except OSError as e:
                     print('退出成功  pid:{}'.format(pid))
                     exit(0)
@@ -107,3 +107,6 @@ class Service(BaseService):
                 import traceback
                 traceback.print_exc()
                 break
+
+    def status(self):
+         return os.path.isfile(Conf.pid)
