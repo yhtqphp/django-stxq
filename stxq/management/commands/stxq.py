@@ -26,7 +26,8 @@ class Command(BaseCommand):
             self.stop()
             self.start()
         if options['option'] =='test':
-            self.start()
+            s = Service()
+            s.test()
 
 
     def status(self):
@@ -38,7 +39,7 @@ class Command(BaseCommand):
 
     def start(self):
         s = Service()
-        s.test()
+        s.start()
 
     def stop(self):
         s = Service()
