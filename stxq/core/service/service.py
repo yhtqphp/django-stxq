@@ -63,6 +63,11 @@ class Service(BaseService):
         self.man.stop()
         print('结束运行')
 
+    def test(self):
+        self.__EXIT = False
+        self.man.start()
+        self.join()
+
     def stopPid(self):
         if not Conf.isLinux:
             return self.stop()

@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         # parser.add_argument('option', default='start', help='start|stop|status|reload')
-        parser.add_argument('option', default='start',  help='start|stop|status|reload')
+        parser.add_argument('option', default='start',  help='start|stop|status|reload|test')
 
     def handle(self, *args, **options):
         if options['option'] =='start':
@@ -25,6 +25,9 @@ class Command(BaseCommand):
         if options['option'] =='reload':
             self.stop()
             self.start()
+        if options['option'] =='test':
+            self.start()
+
 
     def status(self):
         s = Service()
@@ -33,10 +36,9 @@ class Command(BaseCommand):
         else:
             self.stdout.write('not runing')
 
-
     def start(self):
         s = Service()
-        s.start()
+        s.test()
 
     def stop(self):
         s = Service()
