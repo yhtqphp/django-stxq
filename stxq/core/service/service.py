@@ -19,9 +19,15 @@ class Service(BaseService):
 
 
     def startLinux(self):
-        if  os.path.isfile(Conf.pid):
-            print('runing...')
-            exit(0)
+        if os.path.isfile(Conf.pid):
+            with open(Conf.pid, 'r') as fp:
+                pid = int(fp.read())
+                try:
+                    psutil.Process(pid=pid)
+                    print('runing...')
+                    exit(0)
+                except Exception as e:
+                    pass
         pid = os.fork()
         if pid:
             exit(0)

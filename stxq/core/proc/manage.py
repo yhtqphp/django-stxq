@@ -26,7 +26,6 @@ class Manage(object):
         # signal.signal(SIGTERM, self.sigHander)
 
     def sigHander(self, sig, frame):
-        print(sig)
         self.stop()
 
     def submit(self, procList: list):

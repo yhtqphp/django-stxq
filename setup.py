@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='django-stxq',
-    version='1.0.0',
+    version='1.0.1',
     packages=['stxq', 'stxq.core', 'stxq.core.proc', 'stxq.core.service', 'stxq.management',
               'stxq.management.commands', 'stxq.migrations'],
     url='',
